@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,9 +11,17 @@ class _HomePageState extends State<HomePage> {
   double peso = 70.0;
   double altura = 165;
 
+  double imc = 0;
+
+  calculadoraImc() {
+    imc = peso / pow((altura / 100), 2);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color(0xFF001d3d),
         title: Text(
@@ -116,7 +126,9 @@ class _HomePageState extends State<HomePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF001d3d),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  calculadoraImc();
+                },
                 icon: Icon(Icons.play_arrow),
                 label: Text(
                   "Calcular",
@@ -144,6 +156,47 @@ class _HomePageState extends State<HomePage> {
                 color: Color(0xFF001d3d).withOpacity(0.80),
               ),
             ),
+            Center(
+              child: Image.asset(
+                'assets/images/imagen1.png',
+                height: 180,
+                width: 180,
+                fit: BoxFit.contain,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  imc.toStringAsFixed(1),
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFf72585),
+                  ),
+                ),
+                Text(
+                  "Sobrepeso",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF001d3d).withOpacity(0.85),
+                  ),
+                ),
+                Text(
+                  "Debes de comer más sano y realizar más actividad física",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF001d3d).withOpacity(0.85),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
